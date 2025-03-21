@@ -51,7 +51,7 @@ export default function Home() {
     setRecordingHistory([]);
   }
   useEffect(() => {
-    const newSocket = io("http://localhost:5050");
+    const newSocket = io("https://aug-back-deploy-production.up.railway.app/");
 
     newSocket.on("connect", () => {
       console.log("✅ Socket.IO Connected");
