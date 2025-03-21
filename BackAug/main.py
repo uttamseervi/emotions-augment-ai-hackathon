@@ -1,9 +1,10 @@
 import eventlet
 eventlet.monkey_patch()  # Fix WebSocket issues
 import re
-from flask_cors import CORS 
 from  utils.predictMoodUtils import predict_emotion_util 
+from flask_cors import CORS 
 from flask import request
+
 
 import json
 import base64
@@ -37,6 +38,7 @@ CORS(app, resources={
 
 socketio = SocketIO(app, cors_allowed_origins=[
     "http://localhost:5173",  
+    "http://localhost:3000",
     "https://disease-prediction-app.vercel.app",
     "https://emotions-augment-ai-hackathon.vercel.app"  # Add frontend
 ])
@@ -44,7 +46,9 @@ socketio = SocketIO(app, cors_allowed_origins=[
 @app.after_request
 def after_request(response):
     allowed_origins = [
-        'http://localhost:5173',   
+        'http://localhost:5173',  
+        "http://localhost:3000",
+        'https://disease-prediction-app.vercel.app',
         'https://emotions-augment-ai-hackathon.vercel.app'  # Allow frontend domain
     ]
     
@@ -57,14 +61,6 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
-@app.route('/')
-def home():
-    return "Welcome voice emotion detection"
-
-@app.route('/hello')
-def home1():
-    return "Hello Welcome voice emotion detection"
-
 # Set API Keys
 ASSEMBLY_AI_KEY = "e90167029f9d49e88511ee744d519ccc"
 ELEVENLABS_KEY = "sk_0bc02ae2b14a1940ce7bade6c490df0ba84f946938d532d6" 
@@ -74,6 +70,89 @@ GENAI_API_KEY = "AIzaSyBAwZanZoYfQFZBPAtPABCZroGUhlxUEs8"
 genai.configure(api_key=GENAI_API_KEY)
 client_elevenlabs = ElevenLabs(api_key=ELEVENLABS_KEY)
 
+# # AssemblyAI Speech-to-Text
+# def transcribe_audio(audio_base64):
+#     """Transcribes audio using AssemblyAI API."""
+#     # Decode base64 audio to file
+#     audio_bytes = base64.b64decode(audio_base64)
+    
+#     # Create temp file
+#     temp_dir = tempfile.gettempdir()
+#     temp_file_path = os.path.join(temp_dir, f"audio_{int(time.time())}.webm")
+    
+#     with open(temp_file_path, "wb") as f:
+#         f.write(audio_bytes)
+    
+#     print(f"✅ Saved audio to {temp_file_path}")
+    
+#     try:
+#         # Upload to AssemblyAI
+#         headers = {
+#             "authorization": ASSEMBLY_AI_KEY,
+#             "content-type": "application/json"
+#         }
+        
+#         # Upload the audio file
+#         with open(temp_file_path, "rb") as f:
+#             response = requests.post(
+#                 "https://api.assemblyai.com/v2/upload",
+#                 headers={"authorization": ASSEMBLY_AI_KEY},
+#                 data=f
+#             )
+        
+#         if response.status_code != 200:
+#             print(f"❌ Upload failed: {response.text}")
+#             return "I couldn't understand the audio."
+            
+#         upload_url = response.json()["upload_url"]
+        
+#         # Start transcription
+#         response = requests.post(
+#             "https://api.assemblyai.com/v2/transcript",
+#             headers=headers,
+#             json={
+#                 "audio_url": upload_url,
+#                 "sentiment_analysis": True  # Enable emotion analysis
+#             }
+#         )
+        
+#         transcript_id = response.json()["id"]
+        
+#         # Poll for results
+#         polling_endpoint = f"https://api.assemblyai.com/v2/transcript/{transcript_id}"
+        
+#         while True:
+#             transcription_result = requests.get(polling_endpoint, headers=headers).json()
+            
+#             if transcription_result["status"] == "completed":
+#                 break
+#             elif transcription_result["status"] == "error":
+#                 print(f"❌ Transcription error: {transcription_result}")
+#                 return "There was an error processing your speech."
+                
+#             print("⏳ Waiting for transcription to complete...")
+#             time.sleep(2)
+        
+#         # Clean up temp file
+#         try:
+#             os.remove(temp_file_path)
+#         except:
+#             pass
+            
+#         # Get the text and any sentiment analysis
+#         text = transcription_result["text"]
+#         sentiment = ""
+        
+#         if "sentiment_analysis_results" in transcription_result and transcription_result["sentiment_analysis_results"]:
+#             sentiment = transcription_result["sentiment_analysis_results"][0]["sentiment"]
+#             sentiment_score = transcription_result["sentiment_analysis_results"][0]["confidence"]
+#             sentiment = f" (Detected emotion: {sentiment.capitalize()} with {sentiment_score:.0%} confidence)"
+        
+#         return text + sentiment
+        
+#     except Exception as e:
+#         print(f"❌ Transcription error: {str(e)}")
+#         return "I had trouble understanding you. Please try again."
 def transcribe_audio(audio_base64):
     """Optimized transcription using AssemblyAI API."""
     # Decode base64 audio
