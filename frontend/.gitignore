@@ -1,0 +1,7 @@
+# Ignore frontend-specific dependencies
+/node_modules
+/.next/
+/out/
+
+# Ignore virtual environment if mistakenly created inside frontend
+venv/
