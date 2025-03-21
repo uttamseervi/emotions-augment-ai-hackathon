@@ -1,7 +1,4 @@
 # Ignore backend-specific virtual environment
-venv/
-/TempFolder/
-/TempFolder1/
-/TempFolder1
+venv/ 
 /venv
 /venv/

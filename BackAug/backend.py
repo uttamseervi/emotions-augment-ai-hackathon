@@ -1,5 +1,6 @@
 import eventlet
 eventlet.monkey_patch()  # Fix WebSocket issues
+import re
 from  utils.predictMoodUtils import predict_emotion_util 
 
 import json
@@ -297,8 +298,25 @@ def handle_only_user(data):
             print("🎤 Processing audio data")
             audio_base64 = parsed_data["audio"]
             text_input = transcribe_audio(audio_base64) or "Could not transcribe audio."
+
+            
+
+            if " (Detected" in text_input:
+                    cleaned_text = text_input.split(" (Detected")[0].strip()
+            else:
+                    cleaned_text = text_input
+            print("Cleaned text:", cleaned_text)
+
+            text_input = cleaned_text  
+
+            # Split the cleaned text into sentences using regex
+            sentences = re.split(r'(?<=[.!?])\s+', cleaned_text)
+            sentences = [s.strip() for s in sentences if s.strip()]
+            print("Split sentences:", sentences) 
+            
+            print(text_input)
             responseFromModel = predict_emotion_util(text_input)
-            print(f"🗣️ Transcription: {text_input}")
+            print(f"🗣️ Transcription: {sentences}")
 
         else:
             text_input = parsed_data.get("text", "Hello!")
