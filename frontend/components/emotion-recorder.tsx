@@ -33,7 +33,7 @@ export default function EmotionRecorder() {
   }, []);
 
   useEffect(() => {
-    const newSocket = io("https://aug-back-deploy-production.up.railway.app/"); // Ensure it matches your backend URL
+    const newSocket = io("https://emotion-backend-final-production.up.railway.app/"); // Ensure it matches your backend URL
     setSocket(newSocket);
 
     newSocket.on("connect", () => console.log("✅ Socket.IO Connected"));

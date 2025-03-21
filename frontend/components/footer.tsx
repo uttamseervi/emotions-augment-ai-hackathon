@@ -15,7 +15,7 @@ export default function Footer() {
                     <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
                         <h2 className="text-3xl font-bold leading-tight tracking-tighter md:text-4xl">How It Works</h2>
                         <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-                            Our speech emotion analysis uses advanced signal processing and machine learning techniques.
+                        Our speech emotion analysis system utilizes voice-to-text processing combined with a machine learning model to predict emotions from textual data.
                         </p>
                     </div>
                     <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[64rem] md:grid-cols-3 lg:max-w-[64rem] mt-8">
@@ -24,17 +24,18 @@ export default function Footer() {
                                 <CardTitle>Audio Capture</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p>We use the Web Speech API to capture high-quality audio from your microphone in real-time.</p>
+                                <p>The frontend captures voice input using a microphone and sends it to the backend via WebSockets.
+                                </p>
                             </CardContent>
                         </Card>
                         <Card>
                             <CardHeader>
-                                <CardTitle>Feature Extraction</CardTitle>
+                                <CardTitle>Transcription</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <p>
-                                    Our algorithm extracts acoustic features like pitch, energy, tempo, and spectral properties from your
-                                    speech.
+                                The Assembly AI API converts speech into text with high accuracy.
+
                                 </p>
                             </CardContent>
                         </Card>
@@ -43,20 +44,24 @@ export default function Footer() {
                                 <CardTitle>Emotion Classification</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p>A trained machine learning model analyzes these features to classify emotions with high accuracy.</p>
+                                <p>The transcribed text is analyzed by our custom-trained machine learning model, which predicts the probabilities of different emotions.</p>
                             </CardContent>
                         </Card>
+                        
                     </div>
                 </section>
                 <section className="container py-8 md:py-12 lg:py-16 bg-muted rounded-lg my-8">
                     <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
                         <Award className="h-12 w-12 text-primary" />
                         <h2 className="text-3xl font-bold leading-tight tracking-tighter md:text-4xl">
-                            Perfect for Hackathon
+                            Perfect for Emotion detection
                         </h2>
                         <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-                            This project demonstrates innovative use of web technologies, machine learning, and user experience design
-                            - all key elements judges look for in hackathon submissions.
+                        This project showcases:
+Real-time emotion analysis using advanced ML models.
+Seamless AI integration for real-world applications.
+Interactive UI with individual and AI-assisted modes.
+Practical use cases in therapy, customer support, and mental health monitoring.
                         </p>
                         <Tabs defaultValue="features" className="w-full max-w-[800px]">
                             <TabsList className="grid w-full grid-cols-3">
@@ -65,31 +70,35 @@ export default function Footer() {
                                 <TabsTrigger value="extensions">Possible Extensions</TabsTrigger>
                             </TabsList>
                             <TabsContent value="features" className="text-left">
-                                <ul className="list-disc pl-5 space-y-2">
-                                    <li>Real-time speech emotion analysis</li>
-                                    <li>Visual representation of emotional states</li>
-                                    <li>Historical tracking of emotion patterns</li>
-                                    <li>Responsive design works on all devices</li>
-                                    <li>Privacy-focused (all processing happens in the browser)</li>
-                                </ul>
-                            </TabsContent>
+                            <ul>
+  <li>Real-time voice emotion detection</li>
+  <li>Analytics dashboard for emotional trends</li>
+  <li>Self-analysis mode (individual emotion tracking)</li>
+  <li>AI-assisted mode (customer service simulation)</li>
+  <li>Speech-to-text and text-to-speech integration</li>
+  <li>History tracking for emotional insights</li>
+</ul>
+
+</TabsContent>
+
                             <TabsContent value="tech" className="text-left">
-                                <ul className="list-disc pl-5 space-y-2">
-                                    <li>Next.js for frontend framework</li>
-                                    <li>Web Speech API for audio capture</li>
-                                    <li>TensorFlow.js for emotion classification</li>
-                                    <li>Recharts for data visualization</li>
-                                    <li>Tailwind CSS and shadcn/ui for styling</li>
-                                </ul>
+                            <ul>
+  <li>Frontend: Next.js (TypeScript)</li>
+  <li>Backend: Python (FastAPI)</li>
+  <li>ML Model: Custom-trained emotion detection model</li>
+  <li>APIs Used: Assembly AI (speech-to-text), Google Gemini AI (optional AI response)</li>
+  <li>Communication: WebSockets for real-time data transfer</li>
+</ul>
+
                             </TabsContent>
                             <TabsContent value="extensions" className="text-left">
-                                <ul className="list-disc pl-5 space-y-2">
-                                    <li>Add sentiment analysis of transcribed text</li>
-                                    <li>Implement user accounts to save historical data</li>
-                                    <li>Create an API for other applications to use</li>
-                                    <li>Add support for multiple languages</li>
-                                    <li>Develop a mobile app version</li>
-                                </ul>
+                            <ul>
+  <li>Multi-language support for wider accessibility</li>
+  <li>Deeper analytics with emotion pattern trends</li>
+  <li>Personalized AI responses based on detected emotions</li>
+  <li>Integration with customer service platforms for real-world deployment</li>
+</ul>
+
                             </TabsContent>
                         </Tabs>
                     </div>

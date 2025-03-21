@@ -51,7 +51,7 @@ export default function Home() {
     setRecordingHistory([]);
   }
   useEffect(() => {
-    const newSocket = io("https://aug-back-deploy-production.up.railway.app/");
+    const newSocket = io("https://emotion-backend-final-production.up.railway.app/");
 
     newSocket.on("connect", () => {
       console.log("✅ Socket.IO Connected");
@@ -274,25 +274,18 @@ export default function Home() {
           onClick={() => setSelectedSection("section1")}
           variant={selectedSection === "section1" ? "default" : "outline"}
         >
-          Section 1 (Speech Analyzer)
+          Section 1 (Talk about your day)
         </Button>
         <Button
           onClick={() => setSelectedSection("section2")}
           variant={selectedSection === "section2" ? "default" : "outline"}
         >
-          Section 2 (Record Voice)
+          Section 2 (Voice Chat with AI companion)
         </Button>
       </div>
 
       {/* Toggle Recording History Button */}
-      <div className="container mx-auto my-4 flex justify-center gap-3">
-        <Button onClick={() => setShowHistory((prev) => !prev)}>
-          {showHistory ? "Hide Recording History" : "Show Recording History"}
-        </Button>
-        <Button onClick={() => deleteHistory()}>
-          Delete Recording History
-        </Button>
-      </div>
+
 
       {/* Render section based on button selection */}
       {selectedSection === "section2" && (
@@ -301,10 +294,10 @@ export default function Home() {
             <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16">
               <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-                  Detect Emotions in Your Voice
+                  Customer Service Simulation
                 </h1>
                 <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-                  Our AI-powered tool analyzes your speech to identify emotions in real-time (Talk to our Ai-Agent).
+                  (AI is just used to keep the conversation going, but the emotions are detected from our ml model)
                 </p>
                 <div className="space-x-4">
                   {!isRecording && !loading ? (
@@ -390,6 +383,15 @@ export default function Home() {
           </CardContent>
         </Card>
       )}
+
+<div className="container mx-auto my-4 flex justify-center gap-3">
+        <Button onClick={() => setShowHistory((prev) => !prev)}>
+          {showHistory ? "Hide Recording History" : "Show Recording History"}
+        </Button>
+        <Button onClick={() => deleteHistory()}>
+          Delete Recording History
+        </Button>
+      </div>
 
       <section>
         <Footer />
