@@ -1,5 +1,11 @@
 # EmotionVox: AI-Powered Real-Time Voice Chatbot
 
+# Live Link  
+[EmotionVox Live](https://emotions-augment-ai-hackathon.vercel.app/)  
+
+# Backend API  
+[EmotionVox Backend](https://emotion-backend-final-production.up.railway.app/) 
+
 ## Overview
 EmotionVox is a real-time voice chatbot that transcribes audio, detects emotions, generates AI responses, and converts them back to speech. It leverages advanced AI technologies to provide an interactive and engaging user experience.
 
