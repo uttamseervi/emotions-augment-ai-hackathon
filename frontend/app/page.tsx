@@ -51,7 +51,7 @@ export default function Home() {
     setRecordingHistory([]);
   }
   useEffect(() => {
-    const newSocket = io("https://emotion-backend-final-production.up.railway.app/");
+    const newSocket = io("http://localhost:5050/");
 
     newSocket.on("connect", () => {
       console.log("✅ Socket.IO Connected");
